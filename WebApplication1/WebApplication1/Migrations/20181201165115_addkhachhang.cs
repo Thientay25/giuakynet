@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplication1.Migrations
 {
-    public partial class addkh : Migration
+    public partial class addkhachhang : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,13 +12,16 @@ namespace WebApplication1.Migrations
                 name: "KhachHang",
                 columns: table => new
                 {
-                    MaKh = table.Column<string>(nullable: false),
-                    MatKhau = table.Column<string>(nullable: true),
-                    HoTen = table.Column<string>(nullable: true)
+                    UserID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    HoTen = table.Column<string>(nullable: false),
+                    Username = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false),
+                    ConfirmPassword = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_KhachHang", x => x.MaKh);
+                    table.PrimaryKey("PK_KhachHang", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(

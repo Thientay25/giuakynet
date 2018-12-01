@@ -10,8 +10,8 @@ using WebApplication1.Models;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    [Migration("20181201083117_addkh")]
-    partial class addkh
+    [Migration("20181201165115_addkhachhang")]
+    partial class addkhachhang
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,14 +23,22 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Models.KhachHang", b =>
                 {
-                    b.Property<string>("MaKh")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("HoTen");
+                    b.Property<string>("ConfirmPassword");
 
-                    b.Property<string>("MatKhau");
+                    b.Property<string>("HoTen")
+                        .IsRequired();
 
-                    b.HasKey("MaKh");
+                    b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.Property<string>("Username")
+                        .IsRequired();
+
+                    b.HasKey("UserID");
 
                     b.ToTable("KhachHang");
                 });

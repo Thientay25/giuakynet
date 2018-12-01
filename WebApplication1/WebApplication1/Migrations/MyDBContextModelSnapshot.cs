@@ -21,14 +21,22 @@ namespace WebApplication1.Migrations
 
             modelBuilder.Entity("WebApplication1.Models.KhachHang", b =>
                 {
-                    b.Property<string>("MaKh")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("HoTen");
+                    b.Property<string>("ConfirmPassword");
 
-                    b.Property<string>("MatKhau");
+                    b.Property<string>("HoTen")
+                        .IsRequired();
 
-                    b.HasKey("MaKh");
+                    b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.Property<string>("Username")
+                        .IsRequired();
+
+                    b.HasKey("UserID");
 
                     b.ToTable("KhachHang");
                 });

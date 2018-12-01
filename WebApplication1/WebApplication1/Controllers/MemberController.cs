@@ -3,151 +3,80 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication1.Controllers
 {
     public class MemberController : Controller
     {
-        private readonly MyDBContext _context;
-
+        private MyDBContext _context;
         public MemberController(MyDBContext context)
         {
             _context = context;
         }
-
-        // GET: Member
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.KhachHangs.ToListAsync());
+            return View(_context.KhachHangs.ToList());
         }
-
-        // GET: Member/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var khachHang = await _context.KhachHangs
-                .FirstOrDefaultAsync(m => m.MaKh == id);
-            if (khachHang == null)
-            {
-                return NotFound();
-            }
-
-            return View(khachHang);
-        }
-
-        // GET: Member/Create
-        public IActionResult Create()
+        public ActionResult Register()
         {
             return View();
         }
 
-        // POST: Member/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaKh,MatKhau,HoTen")] KhachHang khachHang)
+        public ActionResult Register(KhachHang user)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(khachHang);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.KhachHangs.Add(user);
+                _context.SaveChanges();
+
+                ModelState.Clear();
+                ViewBag.Message = user.HoTen + " đã đăng kí thành công.";
             }
-            return View(khachHang);
+            return View();
         }
 
-        // GET: Member/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public ActionResult Login()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var khachHang = await _context.KhachHangs.FindAsync(id);
-            if (khachHang == null)
-            {
-                return NotFound();
-            }
-            return View(khachHang);
+            return View();
         }
 
-        // POST: Member/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("MaKh,MatKhau,HoTen")] KhachHang khachHang)
+        public ActionResult Login(KhachHang user)
         {
-            if (id != khachHang.MaKh)
+            var account = _context.KhachHangs.Where(u => u.Username == user.Username && u.Password == user.Password).FirstOrDefault();
+            if (account != null)
             {
-                return NotFound();
+                HttpContext.Session.SetString("UserID", account.UserID.ToString());
+                HttpContext.Session.SetString("Username", account.Username);
+                return RedirectToAction("Welcome");
             }
-
-            if (ModelState.IsValid)
+            else
             {
-                try
-                {
-                    _context.Update(khachHang);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!KhachHangExists(khachHang.MaKh))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("", "Sai tên tài khoản hoặc mật khẩu.");
             }
-            return View(khachHang);
+            return View();
         }
 
-        // GET: Member/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public ActionResult Welcome()
         {
-            if (id == null)
+            if (HttpContext.Session.GetString("UserID") != null)
             {
-                return NotFound();
+                ViewBag.Username = HttpContext.Session.GetString("Username");
+                return View();
             }
-
-            var khachHang = await _context.KhachHangs
-                .FirstOrDefaultAsync(m => m.MaKh == id);
-            if (khachHang == null)
+            else
             {
-                return NotFound();
+                return RedirectToAction("Login");
             }
-
-            return View(khachHang);
         }
 
-        // POST: Member/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public ActionResult Logout()
         {
-            var khachHang = await _context.KhachHangs.FindAsync(id);
-            _context.KhachHangs.Remove(khachHang);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
         }
-
-        private bool KhachHangExists(string id)
-        {
-            return _context.KhachHangs.Any(e => e.MaKh == id);
-        }
-
     }
 }

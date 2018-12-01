@@ -82,8 +82,7 @@ E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcore
 E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\TinTucs\Details.g.cshtml.cs
 E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\TinTucs\Edit.g.cshtml.cs
 E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\TinTucs\Index.g.cshtml.cs
-E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\Member\Create.g.cshtml.cs
-E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\Member\Delete.g.cshtml.cs
-E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\Member\Details.g.cshtml.cs
-E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\Member\Edit.g.cshtml.cs
 E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\Member\Index.g.cshtml.cs
+E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\Member\Login.g.cshtml.cs
+E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\Member\Welcome.g.cshtml.cs
+E:\2 - Cong Nghe Net\giuakynet\WebApplication1\WebApplication1\obj\Debug\netcoreapp2.1\Razor\Views\Member\Register.g.cshtml.cs

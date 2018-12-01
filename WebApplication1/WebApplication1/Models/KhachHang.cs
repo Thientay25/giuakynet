@@ -11,8 +11,24 @@ namespace WebApplication1.Models
     public class KhachHang
     {
         [Key]
-        public string MaKh { get; set; }
-        public string MatKhau { get; set; }
-        public string HoTen { get; set; }
+        public int UserID { get; set; }
+
+        [Required(ErrorMessage = "Bắt buộc.")]
+        [Display(Name ="Họ tên")]
+        public string HoTen { get; set; }      
+
+        [Required(ErrorMessage = "Bắt buộc")]
+        [Display(Name = "Tên tài khoản")]
+        public string Username { get; set; }
+
+        [Required(ErrorMessage = "Bắt buộc.")]
+        [DataType(DataType.Password)]
+        [Display(Name ="Mật khẩu")]
+        public string Password { get; set; }
+
+        [Compare("Password", ErrorMessage = "Không trùng khớp.")]
+        [DataType(DataType.Password)]
+        [Display(Name ="Nhập lại mật khẩu")]
+        public string ConfirmPassword { get; set; }
     }
 }
