@@ -1,0 +1,80 @@
+﻿@model IEnumerable<WebApplication1.Models.TinTuc>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaTin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TieuDe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoiDung)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayDang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Loai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.MaTin)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.TieuDe)
+            </td>
+            <td>
+                <img src="~/Hinh/TinTuc/@item.Hinh" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoiDung)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayDang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Loai)
+            </td>
+            <td>
+                <a  asp-action="Edit" asp-route-id="@item.MaTin">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                    Sửa
+                </a>
+                <a data-toggle="modal" data-target="#modal-loai"
+                   class="btn btn-danger" asp-action="Delete" asp-route-id="@item.MaTin">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Xóa
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+<div id="modal-loai" aria-hidden="true" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
