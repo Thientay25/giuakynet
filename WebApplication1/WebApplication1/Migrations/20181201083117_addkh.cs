@@ -4,10 +4,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplication1.Migrations
 {
-    public partial class EFCodeFirstMyDBContext : Migration
+    public partial class addkh : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "KhachHang",
+                columns: table => new
+                {
+                    MaKh = table.Column<string>(nullable: false),
+                    MatKhau = table.Column<string>(nullable: true),
+                    HoTen = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KhachHang", x => x.MaKh);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Loai",
                 columns: table => new
@@ -52,6 +65,9 @@ namespace WebApplication1.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "KhachHang");
+
             migrationBuilder.DropTable(
                 name: "TinTuc");
 

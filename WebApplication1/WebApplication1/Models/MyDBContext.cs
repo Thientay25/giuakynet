@@ -10,6 +10,7 @@ namespace WebApplication1.Models
     {
         public DbSet<Loai> Loais { get; set; }
         public DbSet<TinTuc> TinTucs { get; set; }
+        public DbSet<KhachHang> KhachHangs { get; set; }
         public MyDBContext(DbContextOptions<MyDBContext>
        options) : base(options)
         {

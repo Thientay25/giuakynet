@@ -13,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MaTin)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.TieuDe)
             </th>
             <th>
@@ -34,12 +31,8 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
+@foreach (var item in Model) {
         <tr>
-            <th>
-                @Html.DisplayFor(modelItem => item.MaTin)
-            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.TieuDe)
             </td>
@@ -53,28 +46,14 @@
                 @Html.DisplayFor(modelItem => item.NgayDang)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Loai)
+                @Html.DisplayFor(modelItem => item.Loai.TenLoai)
             </td>
             <td>
-                <a  asp-action="Edit" asp-route-id="@item.MaTin">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                    Sửa
-                </a>
-                <a data-toggle="modal" data-target="#modal-loai"
-                   class="btn btn-danger" asp-action="Delete" asp-route-id="@item.MaTin">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    Xóa
-                </a>
+                <a asp-action="Edit" asp-route-id="@item.MaTin">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaTin">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaTin">Delete</a>
             </td>
         </tr>
-        }
+}
     </tbody>
-
 </table>
-<div id="modal-loai" aria-hidden="true" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-        </div>
-    </div>
-</div>

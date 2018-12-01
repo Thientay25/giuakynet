@@ -9,90 +9,85 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class TinTucsController : Controller
+    public class MemberController : Controller
     {
         private readonly MyDBContext _context;
 
-        public TinTucsController(MyDBContext context)
+        public MemberController(MyDBContext context)
         {
             _context = context;
         }
 
-        // GET: TinTucs
+        // GET: Member
         public async Task<IActionResult> Index()
         {
-            var myDBContext = _context.TinTucs.Include(t => t.Loai);
-            return View(await myDBContext.ToListAsync());
+            return View(await _context.KhachHangs.ToListAsync());
         }
 
-        // GET: TinTucs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Member/Details/5
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var tinTuc = await _context.TinTucs
-                .Include(t => t.Loai)
-                .FirstOrDefaultAsync(m => m.MaTin == id);
-            if (tinTuc == null)
+            var khachHang = await _context.KhachHangs
+                .FirstOrDefaultAsync(m => m.MaKh == id);
+            if (khachHang == null)
             {
                 return NotFound();
             }
 
-            return View(tinTuc);
+            return View(khachHang);
         }
 
-        // GET: TinTucs/Create
+        // GET: Member/Create
         public IActionResult Create()
         {
-            ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "TenLoai");
             return View();
         }
 
-        // POST: TinTucs/Create
+        // POST: Member/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaTin,TieuDe,Hinh,NoiDung,NgayDang,MaLoai")] TinTuc tinTuc)
+        public async Task<IActionResult> Create([Bind("MaKh,MatKhau,HoTen")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tinTuc);
+                _context.Add(khachHang);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "TenLoai", tinTuc.MaLoai);
-            return View(tinTuc);
+            return View(khachHang);
         }
 
-        // GET: TinTucs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Member/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var tinTuc = await _context.TinTucs.FindAsync(id);
-            if (tinTuc == null)
+            var khachHang = await _context.KhachHangs.FindAsync(id);
+            if (khachHang == null)
             {
                 return NotFound();
             }
-            ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "TenLoai", tinTuc.MaLoai);
-            return View(tinTuc);
+            return View(khachHang);
         }
 
-        // POST: TinTucs/Edit/5
+        // POST: Member/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaTin,TieuDe,Hinh,NoiDung,NgayDang,MaLoai")] TinTuc tinTuc)
+        public async Task<IActionResult> Edit(string id, [Bind("MaKh,MatKhau,HoTen")] KhachHang khachHang)
         {
-            if (id != tinTuc.MaTin)
+            if (id != khachHang.MaKh)
             {
                 return NotFound();
             }
@@ -101,12 +96,12 @@ namespace WebApplication1.Controllers
             {
                 try
                 {
-                    _context.Update(tinTuc);
+                    _context.Update(khachHang);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TinTucExists(tinTuc.MaTin))
+                    if (!KhachHangExists(khachHang.MaKh))
                     {
                         return NotFound();
                     }
@@ -117,43 +112,42 @@ namespace WebApplication1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MaLoai"] = new SelectList(_context.Loais, "MaLoai", "TenLoai", tinTuc.MaLoai);
-            return View(tinTuc);
+            return View(khachHang);
         }
 
-        // GET: TinTucs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Member/Delete/5
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var tinTuc = await _context.TinTucs
-                .Include(t => t.Loai)
-                .FirstOrDefaultAsync(m => m.MaTin == id);
-            if (tinTuc == null)
+            var khachHang = await _context.KhachHangs
+                .FirstOrDefaultAsync(m => m.MaKh == id);
+            if (khachHang == null)
             {
                 return NotFound();
             }
 
-            return View(tinTuc);
+            return View(khachHang);
         }
 
-        // POST: TinTucs/Delete/5
+        // POST: Member/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var tinTuc = await _context.TinTucs.FindAsync(id);
-            _context.TinTucs.Remove(tinTuc);
+            var khachHang = await _context.KhachHangs.FindAsync(id);
+            _context.KhachHangs.Remove(khachHang);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TinTucExists(int id)
+        private bool KhachHangExists(string id)
         {
-            return _context.TinTucs.Any(e => e.MaTin == id);
+            return _context.KhachHangs.Any(e => e.MaKh == id);
         }
+
     }
 }

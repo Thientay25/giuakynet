@@ -10,8 +10,8 @@ using WebApplication1.Models;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(MyDBContext))]
-    [Migration("20181201062930_EFCodeFirst.MyDBContext")]
-    partial class EFCodeFirstMyDBContext
+    [Migration("20181201083117_addkh")]
+    partial class addkh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,20 @@ namespace WebApplication1.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("WebApplication1.Models.KhachHang", b =>
+                {
+                    b.Property<string>("MaKh")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("HoTen");
+
+                    b.Property<string>("MatKhau");
+
+                    b.HasKey("MaKh");
+
+                    b.ToTable("KhachHang");
+                });
 
             modelBuilder.Entity("WebApplication1.Models.Loai", b =>
                 {

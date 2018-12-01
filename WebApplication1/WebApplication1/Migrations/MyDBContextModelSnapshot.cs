@@ -19,6 +19,20 @@ namespace WebApplication1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WebApplication1.Models.KhachHang", b =>
+                {
+                    b.Property<string>("MaKh")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("HoTen");
+
+                    b.Property<string>("MatKhau");
+
+                    b.HasKey("MaKh");
+
+                    b.ToTable("KhachHang");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.Loai", b =>
                 {
                     b.Property<int>("MaLoai")
